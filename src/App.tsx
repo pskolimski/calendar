@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./styles/theme";
+import MainTemplate from "./templates/MainTemplate/MainTemplate";
+import { GlobalStyle } from "./styles/GlobalStyle";
+import Navigation from "./components/Navigation/Navigation";
+import Events from "./components/Events/Events";
 
-function App() {
-  const [count, setCount] = useState(0)
+export type Event = {
+  title: string;
+  date: Date;
+};
+
+const App: React.FC = () => {
+  const [events, setEvents] = useState([] as Event[]);
+
+  const createEvent = (title: string) => {
+    const newEvent: Event = {
+      title: title,
+      date: new Date(),
+    };
+
+    setEvents([...events, newEvent]);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <MainTemplate>
+        <Navigation createEvent={createEvent} />
+        <Events events={events} />
+      </MainTemplate>
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;
