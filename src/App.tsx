@@ -14,10 +14,10 @@ export type Event = {
 const App: React.FC = () => {
   const [events, setEvents] = useState([] as Event[]);
 
-  const createEvent = (title: string) => {
+  const createEvent = (title: string, date: Date) => {
     const newEvent: Event = {
       title: title,
-      date: new Date(),
+      date: date,
     };
 
     setEvents([...events, newEvent]);

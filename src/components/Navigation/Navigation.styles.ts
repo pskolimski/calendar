@@ -21,7 +21,6 @@ export const Form = styled.div`
 
 export const Input = styled.input`
   padding: 10px;
-  min-width: 250px;
   border-radius: 5px;
   border: none;
   background-color: white;
